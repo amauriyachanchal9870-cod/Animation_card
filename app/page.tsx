@@ -123,8 +123,8 @@ export default function Home() {
     <div className="container">
       {/* Audio Element */}
       <audio ref={audioRef} loop>
-        {/* Replaced with a more romantic piano tune */}
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg" />
+        {/* 'Idea' by Kai Engel - A beautiful romantic track */}
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Idea/Kai_Engel_-_04_-_Idea.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 

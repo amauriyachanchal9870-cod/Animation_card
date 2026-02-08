@@ -47,6 +47,39 @@ export default function Home() {
   // Typewriter effect
   const { displayedText, isComplete } = useTypewriter(messages[currentMessageIndex], 40);
 
+  // Autoplay Logic - Aggressive
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Try to play immediately
+    const playAudio = () => {
+      audio.play()
+        .then(() => setIsPlaying(true))
+        .catch((e) => console.log("Autoplay blocked by browser:", e));
+    };
+
+    playAudio();
+
+    // Fallback: Play on any first user interaction
+    const handleInteraction = () => {
+      playAudio();
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+    window.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+  }, []);
+
   useEffect(() => {
     // Generate hearts
     const newHearts = Array.from({ length: 25 }).map((_, i) => ({
@@ -70,10 +103,6 @@ export default function Home() {
 
   const startExperience = () => {
     setStage('message');
-    // Try to play music on first interaction
-    if (audioRef.current && !isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(e => console.log("Audio autoplay failed:", e));
-    }
   };
 
   const triggerConfetti = () => {

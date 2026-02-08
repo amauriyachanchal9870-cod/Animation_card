@@ -54,6 +54,8 @@ export default function Home() {
 
     // Try to play immediately
     const playAudio = () => {
+      audio.muted = false;
+      audio.volume = 0.5; // Reasonable default volume
       audio.play()
         .then(() => setIsPlaying(true))
         .catch((e) => console.log("Autoplay blocked by browser:", e));

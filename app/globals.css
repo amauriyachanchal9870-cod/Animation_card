@@ -330,3 +330,53 @@ button {
   background: #a4133c;
   color: white;
 }
+
+/* Audio Control */
+.audio-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 100;
+  font-size: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.audio-control:hover {
+  transform: scale(1.1);
+}
+
+/* Reasons List */
+.reasons-container {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  text-align: left;
+}
+
+.reason-item {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  padding: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.reason-item:last-child {
+  border-bottom: none;
+}
+
+/* Scrollbar styling */
+.reasons-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reasons-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 77, 109, 0.5);
+  border-radius: 10px;
+}

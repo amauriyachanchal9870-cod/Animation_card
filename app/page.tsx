@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
+import { useTypewriter } from './hooks/useTypewriter';
 
 export default function Home() {
   const [stage, setStage] = useState<'card' | 'message' | 'question' | 'celebration'>('card');
@@ -19,6 +20,9 @@ export default function Home() {
 
   // Floating hearts background logic
   const [hearts, setHearts] = useState<{ id: number; left: number; duration: number }[]>([]);
+
+  // Typewriter effect
+  const { displayedText, isComplete } = useTypewriter(messages[currentMessageIndex], 50);
 
   useEffect(() => {
     // Generate hearts
@@ -106,12 +110,14 @@ export default function Home() {
       {stage === 'message' && (
         <div className="message-content">
           <h2>Dear Bestie...</h2>
-          <p className="message-text">
-            {messages[currentMessageIndex]}
-          </p>
-          <button className="nextBtn" onClick={handleNextMessage}>
-            {currentMessageIndex < messages.length - 1 ? "Next ❤️" : "Continue 🌹"}
-          </button>
+          <div className="message-text-container">
+            <p className="message-text">{displayedText}</p>
+          </div>
+          {isComplete && (
+            <button className="nextBtn" onClick={handleNextMessage}>
+              {currentMessageIndex < messages.length - 1 ? "Next ❤️" : "Continue 🌹"}
+            </button>
+          )}
         </div>
       )}
 

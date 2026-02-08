@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: 'A special Valentine card',
 }
 
+import CursorTrail from './components/CursorTrail'
+
 export default function RootLayout({
   children,
 }: {
@@ -27,7 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${dancingScript.variable} ${poppins.variable}`}>{children}</body>
+      <body className={`${dancingScript.variable} ${poppins.variable}`}>
+        <CursorTrail />
+        {children}
+      </body>
     </html>
   )
 }

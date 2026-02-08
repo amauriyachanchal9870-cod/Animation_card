@@ -123,7 +123,8 @@ export default function Home() {
     <div className="container">
       {/* Audio Element */}
       <audio ref={audioRef} loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+        {/* Replaced with a more romantic piano tune */}
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 

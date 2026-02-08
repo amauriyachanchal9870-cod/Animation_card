@@ -39,16 +39,18 @@ body {
 .popup-content,
 .celebration-content,
 .message-content {
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   text-align: center;
-  padding: 50px 40px;
-  max-width: 90%;
-  width: 450px;
+  padding: 60px 50px;
+  /* Increased padding */
+  max-width: 95%;
+  width: 600px;
+  /* Increased width */
   color: var(--text-color);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
   cursor: pointer;
@@ -58,7 +60,77 @@ body {
 
 .card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 45px 0 rgba(31, 38, 135, 0.2);
+  box-shadow: 0 15px 45px 0 rgba(31, 38, 135, 0.2), 0 0 20px rgba(255, 255, 255, 0.4);
+  /* Glow effect */
+}
+
+/* Background Blobs */
+.blob {
+  position: absolute;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.6;
+  animation: move 20s infinite alternate;
+}
+
+.blob-1 {
+  top: 10%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  background: #ff9a9e;
+  animation-duration: 25s;
+}
+
+.blob-2 {
+  bottom: 20%;
+  right: 10%;
+  width: 400px;
+  height: 400px;
+  background: #fecfef;
+  animation-duration: 30s;
+}
+
+.blob-3 {
+  bottom: 10%;
+  left: 30%;
+  width: 250px;
+  height: 250px;
+  background: #ffdde1;
+  animation-duration: 22s;
+}
+
+@keyframes move {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+}
+
+/* Floating Words */
+.floating-word {
+  position: absolute;
+  font-family: var(--font-dancing);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 3rem;
+  z-index: 0;
+  pointer-events: none;
+  animation: floatWord 15s infinite ease-in-out;
+}
+
+@keyframes floatWord {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-30px);
+  }
 }
 
 h1,

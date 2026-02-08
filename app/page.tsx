@@ -1,13 +1,17 @@
 'use strict';
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { useTypewriter } from './hooks/useTypewriter';
 
 export default function Home() {
   const [stage, setStage] = useState<'card' | 'message' | 'question' | 'celebration'>('card');
   const [noPosition, setNoPosition] = useState<{ top: string; left: string; position: 'static' | 'fixed' }>({ top: 'auto', left: 'auto', position: 'static' });
+
+  // Audio
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Heartfelt messages - Expanded
   const messages = [
@@ -18,6 +22,17 @@ export default function Home() {
     "So I have a very special question for you..."
   ];
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  // Reasons Why
+  const reasons = [
+    "You have the kindest heart ❤️",
+    "Your smile lights up the room ✨",
+    "You make me laugh when I'm down 😂",
+    "You always support my crazy ideas 🚀",
+    "You are just simply amazing 🌟",
+    "I can be myself around you 🦄"
+  ];
+  const [showReasons, setShowReasons] = useState(false);
 
   // Background elements (Hearts + Words)
   const [hearts, setHearts] = useState<{ id: number; left: number; duration: number }[]>([]);
@@ -30,7 +45,7 @@ export default function Home() {
   ];
 
   // Typewriter effect
-  const { displayedText, isComplete } = useTypewriter(messages[currentMessageIndex], 40); // Slightly faster
+  const { displayedText, isComplete } = useTypewriter(messages[currentMessageIndex], 40);
 
   useEffect(() => {
     // Generate hearts
@@ -41,6 +56,25 @@ export default function Home() {
     }));
     setHearts(newHearts);
   }, []);
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const startExperience = () => {
+    setStage('message');
+    // Try to play music on first interaction
+    if (audioRef.current && !isPlaying) {
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(e => console.log("Audio autoplay failed:", e));
+    }
+  };
 
   const triggerConfetti = () => {
     const duration = 5 * 1000;
@@ -87,6 +121,17 @@ export default function Home() {
 
   return (
     <div className="container">
+      {/* Audio Element */}
+      <audio ref={audioRef} loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      {/* Audio Control */}
+      <div className="audio-control" onClick={toggleMusic}>
+        {isPlaying ? '🔊' : '🔇'}
+      </div>
+
       {/* Animated Gradient Blobs */}
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
@@ -121,7 +166,7 @@ export default function Home() {
       </div>
 
       {stage === 'card' && (
-        <div className="card" onClick={() => setStage('message')}>
+        <div className="card" onClick={startExperience}>
           <div className="card-content">
             <h1>For My Favorite Person</h1>
             <p>To the girl who makes every day brighter.</p>
@@ -169,6 +214,24 @@ export default function Home() {
             <h1>Yay! 💖</h1>
             <p>Congratulations! You are officially my Valentine!</p>
             <p>Can&apos;t wait to celebrate with you! 🎉</p>
+
+            {!showReasons ? (
+              <button
+                className="nextBtn"
+                style={{ marginTop: '20px' }}
+                onClick={() => setShowReasons(true)}
+              >
+                Why I chose you... 📜
+              </button>
+            ) : (
+              <div className="reasons-container">
+                {reasons.map((reason, i) => (
+                  <div key={i} className="reason-item">
+                    {reason}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

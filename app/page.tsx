@@ -154,8 +154,7 @@ export default function Home() {
     <div className="container">
       {/* Audio Element */}
       <audio ref={audioRef} loop>
-        {/* 'Idea' by Kai Engel - A beautiful romantic track */}
-        <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kai_Engel/Idea/Kai_Engel_-_04_-_Idea.mp3" type="audio/mpeg" />
+        <source src="/music.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
